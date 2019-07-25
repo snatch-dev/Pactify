@@ -1,0 +1,35 @@
+{
+  "Consumer": {
+    "Name": "orders"
+  },
+  "Provider": {
+    "Name": "orders"
+  },
+  "Couplings": [
+    {
+      "Request": {
+        "Method": "GET",
+        "Path": "api/parcels/1"
+      },
+      "Response": {
+        "Headers": {
+          "Content-Type": "application/json"
+        },
+        "StatusCode": 200,
+        "Body": {
+          "Id": "00000000-0000-0000-0000-000000000000",
+          "Name": null,
+          "Price": 0.0
+        }
+      },
+      "Type": "Http",
+      "State": "There is a parcel with some id",
+      "Description": "A GET Request to retrieve the parcel"
+    }
+  ],
+  "Options": {
+    "IgnoreCasing": false,
+    "IgnoreContractValues": false,
+    "DestinationPath": "../../../../../pacts"
+  }
+}

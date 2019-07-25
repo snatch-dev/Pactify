@@ -4,5 +4,6 @@ namespace Pactify.Definitions
     {
         public bool IgnoreCasing { get; set; }
         public bool IgnoreContractValues { get; set; }
+        public string DestinationPath { get; set; }
     }
 }

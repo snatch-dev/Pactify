@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using Newtonsoft.Json;
 using Pactify.Definitions;
 using Pactify.Definitions.Http;
 
@@ -8,9 +10,12 @@ namespace Pactify.Builders.Http
     {
         private readonly PactDefinition _pactDefinition;
 
-        public HttpPactBuilder()
+        public HttpPactBuilder(PactDefinitionOptions options)
         {
-            _pactDefinition = new PactDefinition();
+            _pactDefinition = new PactDefinition
+            {
+                Options = options
+            };
         }
 
         public IHttpPactBuilder Between(string consumer, string provider)
@@ -44,7 +49,16 @@ namespace Pactify.Builders.Http
 
         public void Make()
         {
-            throw new NotImplementedException();
+            using (var file = File.CreateText($"{_pactDefinition.Options.DestinationPath}/pact-test.json"))
+            {
+                var json = JsonConvert.SerializeObject(_pactDefinition, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    Formatting = Formatting.Indented
+                });
+                
+                file.Write(json);
+            }
         }
     }
 }
