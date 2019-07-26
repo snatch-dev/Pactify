@@ -1,5 +1,6 @@
 using Pactify.Builders.Http;
 using Pactify.Definitions;
+using Pactify.Publishers;
 
 namespace Pactify
 {
@@ -12,7 +13,7 @@ namespace Pactify
                 throw new PactifyException("Options must be provided");
             }
             
-            return new HttpPactBuilder(options);
+            return new HttpPactBuilder(options, new PublisherFactory());
         }
     }
 }

@@ -3,19 +3,23 @@ using System.IO;
 using Newtonsoft.Json;
 using Pactify.Definitions;
 using Pactify.Definitions.Http;
+using Pactify.Publishers;
 
 namespace Pactify.Builders.Http
 {
     internal sealed class HttpPactBuilder : IHttpPactBuilder
     {
         private readonly PactDefinition _pactDefinition;
+        private readonly IPublisherFactory _factory;
 
-        public HttpPactBuilder(PactDefinitionOptions options)
+        public HttpPactBuilder(PactDefinitionOptions options, IPublisherFactory factory)
         {
             _pactDefinition = new PactDefinition
             {
                 Options = options
             };
+
+            _factory = factory;
         }
 
         public IHttpPactBuilder Between(string consumer, string provider)
@@ -26,7 +30,7 @@ namespace Pactify.Builders.Http
             }
             
             _pactDefinition.Consumer = new ConsumerDefinition { Name = consumer };
-            _pactDefinition.Provider = new ProviderDefinition { Name = consumer };
+            _pactDefinition.Provider = new ProviderDefinition { Name = provider };
             return this;
         }
 
@@ -49,16 +53,14 @@ namespace Pactify.Builders.Http
 
         public void Make()
         {
-            using (var file = File.CreateText($"{_pactDefinition.Options.DestinationPath}/pact-test.json"))
+            var publisher = _factory.Create(_pactDefinition.Options.PublishType);
+
+            if (publisher is null)
             {
-                var json = JsonConvert.SerializeObject(_pactDefinition, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Include,
-                    Formatting = Formatting.Indented
-                });
-                
-                file.Write(json);
+                throw new PactifyException("Provided Publish type is invalid");
             }
+
+            publisher.Publish(_pactDefinition);
         }
     }
 }

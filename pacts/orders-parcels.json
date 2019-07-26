@@ -3,7 +3,7 @@
     "Name": "orders"
   },
   "Provider": {
-    "Name": "orders"
+    "Name": "parcels"
   },
   "Couplings": [
     {
@@ -28,8 +28,9 @@
     }
   ],
   "Options": {
+    "PublishType": "File",
+    "DestinationPath": "../../../../../pacts",
     "IgnoreCasing": false,
-    "IgnoreContractValues": false,
-    "DestinationPath": "../../../../../pacts"
+    "IgnoreContractValues": false
   }
 }

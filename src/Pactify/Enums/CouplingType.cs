@@ -1,6 +1,6 @@
 namespace Pactify.Enums
 {
-    public enum CouplingType
+    internal enum CouplingType
     {
         Http,
         MessageBroker,
