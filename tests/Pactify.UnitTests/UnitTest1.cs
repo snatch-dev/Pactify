@@ -11,9 +11,9 @@ namespace Pactify.UnitTests
         public void Test1()
         {
             PactBuilder
-                .CreateForHttp(new PactDefinitionOptions {DestinationPath = "../../../../../pacts"})
+                .Create(new PactDefinitionOptions {DestinationPath = "../../../../../pacts"})
                 .Between("orders", "parcels")
-                .WithCoupling(cb => cb
+                .WithHttpCoupling(cb => cb
                     .Given("There is a parcel with some id")
                     .UponReceiving("A GET Request to retrieve the parcel")
                     .With( request => request
