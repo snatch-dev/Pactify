@@ -1,4 +1,4 @@
-namespace Pactify.Definitions
+namespace Pactify
 {
     public class PactDefinitionOptions
     {

@@ -1,15 +1,16 @@
 using System.IO;
 using Newtonsoft.Json;
 using Pactify.Definitions;
+using Pactify.Utils;
 
 namespace Pactify.Publishers
 {
-    internal sealed class FilePublisher : IPublisher
+    internal sealed class FilePactPublisher : IPactPublisher
     {
         public void Publish(PactDefinition definition)
         {
             Directory.CreateDirectory(definition.Options.DestinationPath);
-            var filePath = CreatePactFilePath(definition);
+            var filePath = PactifyUtils.CreatePactFilePath(definition);
 
             using (var file = File.CreateText(filePath))
             {
@@ -22,8 +23,5 @@ namespace Pactify.Publishers
                 file.Write(json);
             }
         }
-
-        private static string CreatePactFilePath(PactDefinition definition)
-            => $"{definition.Options.DestinationPath}/{definition.Consumer.Name}-{definition.Provider.Name}.json";
     }
 }

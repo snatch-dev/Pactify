@@ -10,9 +10,9 @@ namespace Pactify
     public class PactBuilder : IPactBuilder
     {
         private readonly PactDefinition _pactDefinition;
-        private readonly IPublisherFactory _factory;
+        private readonly IPactPublisherFactory _factory;
 
-        private PactBuilder(PactDefinitionOptions options, IPublisherFactory factory)
+        private PactBuilder(PactDefinitionOptions options, IPactPublisherFactory factory)
         {
             _pactDefinition = new PactDefinition
             {
@@ -29,7 +29,7 @@ namespace Pactify
                 throw new PactifyException("Options must be provided");
             }
             
-            return new PactBuilder(options, new PublisherFactory());
+            return new PactBuilder(options, new PactPublisherFactory());
         }
 
         public IPactBuilder Between(string consumer, string provider)

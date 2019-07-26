@@ -2,7 +2,7 @@ using Pactify.Definitions;
 
 namespace Pactify.Publishers
 {
-    internal interface IPublisher
+    internal interface IPactPublisher
     {
         void Publish(PactDefinition definition);
     }
