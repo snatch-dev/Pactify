@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Pactify.Converters;
+using Pactify.Definitions.Http;
 
 namespace Pactify.Definitions
 {
@@ -6,7 +9,7 @@ namespace Pactify.Definitions
     {
         public ConsumerDefinition Consumer { get; set; }
         public ProviderDefinition Provider { get; set; }
-        public ISet<ICouplingDefinition> Couplings { get; set; } = new HashSet<ICouplingDefinition>();
+        public List<HttpCouplingDefinition> Couplings { get; set; } = new List<HttpCouplingDefinition>();
         public PactDefinitionOptions Options { get; set; }
     }
 }

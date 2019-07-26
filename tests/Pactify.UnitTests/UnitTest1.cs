@@ -1,6 +1,10 @@
 using System;
 using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
 using Pactify.Definitions;
+using TestWebApp;
 using Xunit;
 
 namespace Pactify.UnitTests
@@ -8,10 +12,16 @@ namespace Pactify.UnitTests
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public async Task Test1()
         {
+            var options = new PactDefinitionOptions
+            {
+                DestinationPath = "../../../../../pacts",
+                IgnoreContractValues = false
+            };
+
             PactBuilder
-                .Create(new PactDefinitionOptions {DestinationPath = "../../../../../pacts"})
+                .Create(options)
                 .Between("orders", "parcels")
                 .WithHttpCoupling(cb => cb
                     .Given("There is a parcel with some id")
@@ -22,8 +32,19 @@ namespace Pactify.UnitTests
                     .WillRespondWith(response => response
                         .WithHeader("Content-Type", "application/json")
                         .WithStatusCode(HttpStatusCode.OK)
-                        .WithBody<ParcelReadModel>()))
+                        .WithBody(new ParcelReadModel {Id = new Guid("14dfc984-4cc1-4037-87f7-579ae2b8f0bc"), Name = "TV", Price = 21.37m})))
                 .Make();
+
+            var testServer = new  TestServer(new WebHostBuilder().UseStartup<Startup>());
+            var client = testServer.CreateClient();
+
+            var verifier = PactVerifierBuilder
+                .Create(options)
+                .Between("orders", "parcels")
+                .UsingHttp(client)
+                .Build();
+
+            await verifier.VerifyAsync();
         }
     }
 

@@ -17,9 +17,9 @@
         },
         "StatusCode": 200,
         "Body": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Name": null,
-          "Price": 0.0
+          "Id": "14dfc984-4cc1-4037-87f7-579ae2b8f0bc",
+          "Name": "TVO",
+          "Price": 21.37
         }
       },
       "Type": "Http",

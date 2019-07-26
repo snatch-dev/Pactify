@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pactify", "src\Pactify\Pact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pactify.UnitTests", "tests\Pactify.UnitTests\Pactify.UnitTests.csproj", "{E9ACB3AD-F498-4123-A8AC-298E0385EC80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{787C329C-1F1F-4E68-A898-A662726B95A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x64.Build.0 = Release|Any CPU
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x86.Build.0 = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|x64.Build.0 = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Debug|x86.Build.0 = Debug|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|x64.ActiveCfg = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|x64.Build.0 = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|x86.ActiveCfg = Release|Any CPU
+		{787C329C-1F1F-4E68-A898-A662726B95A0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

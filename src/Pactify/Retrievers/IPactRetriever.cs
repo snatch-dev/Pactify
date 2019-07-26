@@ -4,6 +4,6 @@ namespace Pactify.Retrievers
 {
     internal interface IPactRetriever
     {
-        PactDefinition Retrieve(string consumer, string provider, PactDefinitionOptions options);
+        PactDefinition Retrieve(PactDefinitionOptions options);
     }
 }
