@@ -4,7 +4,7 @@ using Pactify.Enums;
 
 namespace Pactify.Definitions
 {
-    internal abstract class CouplingDefinitionBase : ICouplingDefinition
+    internal class CouplingDefinitionBase : ICouplingDefinition
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public CouplingType Type { get; set; }

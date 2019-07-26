@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Pactify.Converters;
 using Pactify.Definitions.Http;
 
 namespace Pactify.Definitions

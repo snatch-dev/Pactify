@@ -44,7 +44,8 @@ namespace Pactify.UnitTests
                 .UsingHttp(client)
                 .Build();
 
-            await verifier.VerifyAsync();
+            await verifier
+                .VerifyAsync();
         }
     }
 
