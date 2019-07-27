@@ -3,8 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Pactify.Definitions;
-using TestWebApp;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
 namespace Pactify.UnitTests
@@ -35,7 +34,7 @@ namespace Pactify.UnitTests
                         .WithBody(new ParcelReadModel {Id = new Guid("14dfc984-4cc1-4037-87f7-579ae2b8f0bc"), Name = "TV", Price = 21.37m})))
                 .Make();
 
-            var testServer = new  TestServer(new WebHostBuilder().UseStartup<Startup>());
+            var testServer = new  TestServer(new WebHostBuilder().UseStartup<Program>());
             var client = testServer.CreateClient();
 
             var verifier = PactVerifierBuilder
