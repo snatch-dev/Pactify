@@ -9,16 +9,18 @@ namespace Pactify.Retrievers
     {
         private readonly string _consumer;
         private readonly string _provider;
+        private readonly string _localPath;
 
-        public FilePactRetriever(string consumer, string provider)
+        public FilePactRetriever(string consumer, string provider, string localPath)
         {
             _consumer = consumer;
             _provider = provider;
+            _localPath = localPath;
         }
 
-        public PactDefinition Retrieve(PactDefinitionOptions options)
+        public PactDefinition Retrieve()
         {
-            var path = PactifyUtils.CreatePactFilePath(_consumer, _provider, options);
+            var path = PactifyUtils.CreatePactFilePath(_consumer, _provider, _localPath);
 
             using (var reader = new StreamReader(path))
             {

@@ -1,9 +1,6 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
 namespace Pactify.UnitTests
@@ -15,11 +12,10 @@ namespace Pactify.UnitTests
         {
             var options = new PactDefinitionOptions
             {
-                DestinationPath = "../../../../../pacts",
                 IgnoreContractValues = false,
             };
 
-            PactBuilder
+            PactMaker
                 .Create(options)
                 .Between("orders", "parcels")
                 .WithHttpCoupling(cb => cb
@@ -32,6 +28,7 @@ namespace Pactify.UnitTests
                         .WithHeader("Content-Type", "application/json")
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBody<ParcelReadModel>()))
+                .PublishedAsFile("../../../../../pacts")
                 .Make();
 
 //            var testServer = new  TestServer(new WebHostBuilder().UseStartup<Program>());

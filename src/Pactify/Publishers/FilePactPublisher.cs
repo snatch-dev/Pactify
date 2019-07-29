@@ -7,10 +7,17 @@ namespace Pactify.Publishers
 {
     internal sealed class FilePactPublisher : IPactPublisher
     {
+        private readonly string _localPath;
+
+        public FilePactPublisher(string localPath)
+        {
+            _localPath = localPath;
+        }
+
         public void Publish(PactDefinition definition)
         {
-            Directory.CreateDirectory(definition.Options.DestinationPath);
-            var filePath = PactifyUtils.CreatePactFilePath(definition);
+            Directory.CreateDirectory(_localPath);
+            var filePath = PactifyUtils.CreatePactFilePath(definition, _localPath);
 
             using (var file = File.CreateText(filePath))
             {
