@@ -1,35 +1,33 @@
 {
-  "Consumer": {
-    "Name": "orders"
+  "consumer": {
+    "name": "orders"
   },
-  "Provider": {
-    "Name": "parcels"
+  "provider": {
+    "name": "parcels"
   },
-  "Couplings": [
+  "couplings": [
     {
-      "State": "There is a parcel with some id",
-      "Description": "A GET Request to retrieve the parcel",
-      "Request": {
-        "Method": "GET",
-        "Path": "api/parcels/1"
+      "state": "There is a parcel with some id",
+      "description": "A GET Request to retrieve the parcel",
+      "request": {
+        "method": "GET",
+        "path": "api/parcels/1"
       },
-      "Response": {
-        "Headers": {
-          "Content-Type": "application/json"
+      "response": {
+        "headers": {
+          "content-Type": "application/json"
         },
-        "StatusCode": 200,
-        "Body": {
-          "Id": "00000000-0000-0000-0000-000000000000",
-          "Name": null,
-          "Price": 0.0
+        "statusCode": 200,
+        "body": {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "name": null,
+          "price": 0.0
         }
       }
     }
   ],
-  "Options": {
-    "PublishType": "File",
-    "DestinationPath": "../../../../../pacts",
-    "IgnoreCasing": false,
-    "IgnoreContractValues": false
+  "options": {
+    "ignoreCasing": true,
+    "ignoreContractValues": true
   }
 }

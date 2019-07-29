@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Pactify.Definitions;
 using Pactify.Utils;
 
@@ -24,6 +25,7 @@ namespace Pactify.Publishers
             {
                 var json = JsonConvert.SerializeObject(definition, new JsonSerializerSettings
                 {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
                     NullValueHandling = NullValueHandling.Include,
                     Formatting = Formatting.Indented
                 });

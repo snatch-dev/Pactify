@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -12,7 +11,8 @@ namespace Pactify.UnitTests
         {
             var options = new PactDefinitionOptions
             {
-                IgnoreContractValues = false,
+                IgnoreContractValues = true,
+                IgnoreCasing = true
             };
 
             PactMaker
@@ -31,29 +31,13 @@ namespace Pactify.UnitTests
                 .PublishedAsFile("../../../../../pacts")
                 .Make();
 
-//            var testServer = new  TestServer(new WebHostBuilder().UseStartup<Program>());
-//            var client = testServer.CreateClient();
 
-//            var verifier = PactVerifierBuilder
-//                .Create(options)
-//                .Between("orders", "parcels")
-//                .UsingHttpClient(client)
-//                .Build();
-//
-//            await verifier
-//                .VerifyAsync();
-        }
-    }
 
-    public class ParcelReadModel
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-
-        public ParcelReadModel(Guid id)
-        {
-            Id = id;
+            await PactVerifier
+                .CreateFor<Startup>()
+                .Between("orders", "parcels")
+                .RetrievedFromFile("../../../../../pacts")
+                .VerifyAsync();
         }
     }
 }
