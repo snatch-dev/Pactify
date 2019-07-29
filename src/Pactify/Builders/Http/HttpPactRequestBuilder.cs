@@ -14,7 +14,7 @@ namespace Pactify.Builders.Http
 
         public IHttpPactRequestBuilder WithMethod(HttpMethod method)
         {
-            _pactRequest.Method = method;
+            _pactRequest.Method = method.Method;
             return this;
         }
 

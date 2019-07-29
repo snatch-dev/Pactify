@@ -5,21 +5,19 @@
   "provider": {
     "name": "parcels"
   },
-  "couplings": [
+  "interactions": [
     {
-      "state": "There is a parcel with some id",
+      "provider_state": "There is a parcel with some id",
       "description": "A GET Request to retrieve the parcel",
       "request": {
-        "method": {
-          "method": "GET"
-        },
+        "method": "GET",
         "path": "api/parcels/1"
       },
       "response": {
         "headers": {
           "content-Type": "application/json"
         },
-        "statusCode": 200,
+        "status": 200,
         "body": {
           "id": "00000000-0000-0000-0000-000000000000",
           "name": null,

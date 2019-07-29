@@ -19,16 +19,16 @@ namespace Pactify.Verifiers
             _httpClient = httpClient;
         }
 
-        public async Task<PactVerificationResult> VerifyAsync(HttpCouplingDefinition definition, PactDefinitionOptions options)
+        public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options)
         {
             var getResult = GetHttpMethod(definition.Request.Method);
             var httpResponse = await getResult(definition.Request.Path);
 
             var errors = new List<string>();
 
-            if(httpResponse.StatusCode != definition.Response.StatusCode)
+            if(httpResponse.StatusCode != definition.Response.Status)
             {
-                errors.Add($"Expected status code: {definition.Response.StatusCode}, but was {httpResponse.StatusCode}");
+                errors.Add($"Expected status code: {definition.Response.Status}, but was {httpResponse.StatusCode}");
             }
 
             var json = await httpResponse.Content.ReadAsStringAsync();
@@ -61,9 +61,9 @@ namespace Pactify.Verifiers
             return new PactVerificationResult(errors);
         }
 
-        private Func<string, Task<HttpResponseMessage>> GetHttpMethod(HttpMethod method)
+        private Func<string, Task<HttpResponseMessage>> GetHttpMethod(string method)
         {
-            switch (method.Method)
+            switch (method)
             {
                 case "GET":
                     return path => _httpClient.GetAsync(path);

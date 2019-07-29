@@ -7,7 +7,7 @@ namespace Pactify.Definitions
     {
         public ConsumerDefinition Consumer { get; set; }
         public ProviderDefinition Provider { get; set; }
-        public List<HttpCouplingDefinition> Couplings { get; set; } = new List<HttpCouplingDefinition>();
+        public List<HttpInteractionDefinition> Interactions { get; set; } = new List<HttpInteractionDefinition>();
         public PactDefinitionOptions Options { get; set; }
     }
 }

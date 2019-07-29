@@ -1,8 +1,11 @@
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Pactify.Definitions;
+using Pactify.Serialization;
 
 namespace Pactify.Publishers
 {
@@ -11,27 +14,33 @@ namespace Pactify.Publishers
         private const string RequestHeader = "Pact-Requester";
 
         private readonly string _url;
+        private readonly HttpMethod _method;
         private readonly string _apiKey;
 
-        public HttpPactPublisher(string url, string apiKey)
+        public HttpPactPublisher(string url, HttpMethod method, string apiKey)
         {
             _url = url;
+            _method = method;
             _apiKey = apiKey;
         }
 
         public async Task PublishAsync(PactDefinition definition)
         {
-            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(definition, PactifySerialization.Settings);
+
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri(_url),
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                Method = _method
+            };
 
             if (!(_apiKey is null))
             {
-                httpClient.DefaultRequestHeaders.Add(RequestHeader,_apiKey);
+                request.Headers.Add(RequestHeader,_apiKey);
             }
 
-            var json = JsonConvert.SerializeObject(definition);
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-            await httpClient.PostAsync(_url, stringContent);
+            await new HttpClient().SendAsync(request);
         }
     }
 }

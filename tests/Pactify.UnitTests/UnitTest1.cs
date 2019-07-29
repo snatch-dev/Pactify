@@ -29,7 +29,7 @@ namespace Pactify.UnitTests
                         .WithHeader("Content-Type", "application/json")
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBody<ParcelReadModel>()))
-                .PublishedAsFile("../../../../../pacts")
+                .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put)
                 .Make();
 
 
@@ -37,7 +37,7 @@ namespace Pactify.UnitTests
             await PactVerifier
                 .CreateFor<Startup>()
                 .Between("orders", "parcels")
-                .RetrievedFromFile("../../../../../pacts")
+                .RetrievedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/latest")
                 .VerifyAsync();
         }
     }

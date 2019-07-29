@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Pactify.Definitions;
+using Pactify.Serialization;
 using Pactify.Utils;
 
 namespace Pactify.Publishers
@@ -23,13 +24,7 @@ namespace Pactify.Publishers
 
             using (var file = File.CreateText(filePath))
             {
-                var json = JsonConvert.SerializeObject(definition, new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    NullValueHandling = NullValueHandling.Include,
-                    Formatting = Formatting.Indented
-                });
-
+                var json = JsonConvert.SerializeObject(definition, PactifySerialization.Settings);
                 await file.WriteAsync(json);
             }
         }

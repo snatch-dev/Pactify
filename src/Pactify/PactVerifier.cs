@@ -69,7 +69,7 @@ namespace Pactify
             var definition = await _retriever.RetrieveAsync();
             var verifier = new HttpCouplingVerifier(_httpClient);
 
-            var resultTasks = definition.Couplings
+            var resultTasks = definition.Interactions
                 .Select(c => verifier.VerifyAsync(c, definition.Options))
                 .ToList();
 

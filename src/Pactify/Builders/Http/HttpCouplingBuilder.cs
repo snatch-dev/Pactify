@@ -3,13 +3,13 @@ using Pactify.Definitions.Http;
 
 namespace Pactify.Builders.Http
 {
-    internal sealed class HttpCouplingBuilder : IHttpCouplingBuilder, IBuildingAccessor<HttpCouplingDefinition>
+    internal sealed class HttpCouplingBuilder : IHttpCouplingBuilder, IBuildingAccessor<HttpInteractionDefinition>
     {
-        private readonly HttpCouplingDefinition _definition;
+        private readonly HttpInteractionDefinition _definition;
 
         public HttpCouplingBuilder()
         {
-            _definition = new HttpCouplingDefinition();
+            _definition = new HttpInteractionDefinition();
         }
         
         public IHttpCouplingBuilder Given(string state)
@@ -59,7 +59,7 @@ namespace Pactify.Builders.Http
             return this;
         }
 
-        public HttpCouplingDefinition Build()
+        public HttpInteractionDefinition Build()
             => _definition;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Pactify.Builders;
 using Pactify.Builders.Http;
@@ -53,9 +54,9 @@ namespace Pactify
             var builder = new HttpCouplingBuilder();
             buildCoupling(builder);
 
-            var accessor = (IBuildingAccessor<HttpCouplingDefinition>)builder;
+            var accessor = (IBuildingAccessor<HttpInteractionDefinition>)builder;
             var definition = accessor.Build();
-            _pactDefinition.Couplings.Add(definition);
+            _pactDefinition.Interactions.Add(definition);
 
             return this;
         }
@@ -66,9 +67,9 @@ namespace Pactify
             return this;
         }
 
-        public IPactMaker PublishedViaHttp(string url, string apiKey = null)
+        public IPactMaker PublishedViaHttp(string url, HttpMethod method, string apiKey = null)
         {
-            _publisher = new HttpPactPublisher(url, apiKey);
+            _publisher = new HttpPactPublisher(url, method, apiKey);
             return this;
         }
 

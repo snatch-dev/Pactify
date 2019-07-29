@@ -21,7 +21,7 @@ namespace Pactify.Builders.Http
 
         public IHttpPactResponseBuilder WithStatusCode(HttpStatusCode statusCode)
         {
-            _pactResponse.StatusCode = statusCode;
+            _pactResponse.Status = statusCode;
             return this;
         }
 
