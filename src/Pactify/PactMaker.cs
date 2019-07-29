@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Pactify.Builders;
 using Pactify.Builders.Http;
 using Pactify.Definitions;
@@ -67,17 +68,20 @@ namespace Pactify
 
         public IPactMaker PublishedViaHttp(string url, string apiKey = null)
         {
-            throw new NotImplementedException();
+            _publisher = new HttpPactPublisher(url, apiKey);
+            return this;
         }
 
         public void Make()
+            => MakeAsync().GetAwaiter().GetResult();
+
+        public async Task MakeAsync()
         {
             if (_publisher is null)
             {
                 throw new PactifyException("PACT publisher has not been set up");
             }
-
-            _publisher.Publish(_pactDefinition);
+            await _publisher.PublishAsync(_pactDefinition);
         }
     }
 }

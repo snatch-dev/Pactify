@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Pactify
 {
@@ -9,5 +10,6 @@ namespace Pactify
         IPactMaker PublishedAsFile(string localPath);
         IPactMaker PublishedViaHttp(string url, string apiKey = null);
         void Make();
+        Task MakeAsync();
     }
 }

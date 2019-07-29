@@ -16,11 +16,6 @@ namespace Pactify
         private string _provider;
         private IPactRetriever _retriever;
 
-        private Func<Task> _onBefore = () => Task.CompletedTask;
-        private Func<Task> _onAfter = () => Task.CompletedTask;
-
-
-
         private PactVerifier(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -51,28 +46,27 @@ namespace Pactify
 
         public IPactVerifier RetrievedFromFile(string localPath)
         {
+            if (string.IsNullOrEmpty(_consumer) || string.IsNullOrEmpty(_provider))
+            {
+                throw new PactifyException("Both consumer and provider must be defined");
+            }
+
             _retriever = new FilePactRetriever(_consumer, _provider, localPath);
             return this;
         }
 
         public IPactVerifier RetrievedViaHttp(string url, string apiKey = null)
         {
-            _retriever = null;
+            _retriever = new HttpPactRetriever(url, apiKey);
             return this;
         }
 
-        public IPactVerifier After(Func<Task> onAfter)
-        {
-            _ = onAfter ?? throw new PactifyException("'After' hook mast be provided");
-            _onAfter = onAfter;
-            return this;
-        }
+        public void Verify()
+            => VerifyAsync().GetAwaiter().GetResult();
 
         public async Task VerifyAsync()
         {
-            await _onBefore();
-
-            var definition = _retriever.Retrieve();
+            var definition = await _retriever.RetrieveAsync();
             var verifier = new HttpCouplingVerifier(_httpClient);
 
             var resultTasks = definition.Couplings
@@ -85,8 +79,6 @@ namespace Pactify
                 .Select(t => t.Result)
                 .Aggregate((c, next) => c & next);
 
-            await _onAfter();
-
             if (result.IsSuccessful)
             {
                 return;
@@ -94,8 +86,5 @@ namespace Pactify
 
             throw new PactifyException(string.Join(Environment.NewLine, result.Errors));
         }
-
-        public void Verify()
-            => VerifyAsync().GetAwaiter().GetResult();
     }
 }

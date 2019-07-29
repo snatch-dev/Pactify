@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Pactify.Definitions;
 using Pactify.Utils;
@@ -14,7 +15,7 @@ namespace Pactify.Publishers
             _localPath = localPath;
         }
 
-        public void Publish(PactDefinition definition)
+        public async Task PublishAsync(PactDefinition definition)
         {
             Directory.CreateDirectory(_localPath);
             var filePath = PactifyUtils.CreatePactFilePath(definition, _localPath);
@@ -27,7 +28,7 @@ namespace Pactify.Publishers
                     Formatting = Formatting.Indented
                 });
 
-                file.Write(json);
+                await file.WriteAsync(json);
             }
         }
     }
