@@ -10,7 +10,9 @@
       "state": "There is a parcel with some id",
       "description": "A GET Request to retrieve the parcel",
       "request": {
-        "method": "GET",
+        "method": {
+          "method": "GET"
+        },
         "path": "api/parcels/1"
       },
       "response": {

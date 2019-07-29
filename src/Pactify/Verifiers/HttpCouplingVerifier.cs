@@ -58,13 +58,12 @@ namespace Pactify.Verifiers
                     }
                 }
             }
-
             return new PactVerificationResult(errors);
         }
 
-        private Func<string, Task<HttpResponseMessage>> GetHttpMethod(string method)
+        private Func<string, Task<HttpResponseMessage>> GetHttpMethod(HttpMethod method)
         {
-            switch (method)
+            switch (method.Method)
             {
                 case "GET":
                     return path => _httpClient.GetAsync(path);

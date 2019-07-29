@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -22,7 +23,7 @@ namespace Pactify.UnitTests
                     .Given("There is a parcel with some id")
                     .UponReceiving("A GET Request to retrieve the parcel")
                     .With( request => request
-                        .WithMethod("GET")
+                        .WithMethod(HttpMethod.Get)
                         .WithPath("api/parcels/1"))
                     .WillRespondWith(response => response
                         .WithHeader("Content-Type", "application/json")

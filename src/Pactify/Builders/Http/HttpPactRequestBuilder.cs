@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Pactify.Definitions.Http;
 
 namespace Pactify.Builders.Http
@@ -10,14 +11,9 @@ namespace Pactify.Builders.Http
         {
             _pactRequest = new HttpPactRequest();
         }
-        
-        public IHttpPactRequestBuilder WithMethod(string method)
-        {
-            if (string.IsNullOrEmpty(method))
-            {
-                throw new PactifyException("HTTP method must be provided");
-            }
 
+        public IHttpPactRequestBuilder WithMethod(HttpMethod method)
+        {
             _pactRequest.Method = method;
             return this;
         }

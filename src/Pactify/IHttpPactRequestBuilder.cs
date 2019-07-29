@@ -1,8 +1,10 @@
+using System.Net.Http;
+
 namespace Pactify
 {
     public interface IHttpPactRequestBuilder
     {
-        IHttpPactRequestBuilder WithMethod(string method);
+        IHttpPactRequestBuilder WithMethod(HttpMethod method);
         IHttpPactRequestBuilder WithPath(string path);
     }
 }
