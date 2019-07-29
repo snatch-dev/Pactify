@@ -13,5 +13,3 @@ dotnet add package Pactify --version 1.0.0
 ```
 
 # Getting started
-
-# Icon
