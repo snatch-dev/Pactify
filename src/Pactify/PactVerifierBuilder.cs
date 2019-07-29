@@ -36,15 +36,14 @@ namespace Pactify
             return this;
         }
 
-        public IPactVerifierBuilder UsingHttp(HttpClient httpClient)
+        public IPactVerifierBuilder UsingHttpClient(HttpClient httpClient)
         {
-            _httpClient = httpClient ?? new HttpClient();
+            _httpClient = httpClient;
             return this;
         }
 
         public IPactVerifier Build()
         {
-            var dispatcher = new CouplingVerifierDispatcher(_httpClient);
             var retriever = _factory.Create(_options.PublishType, _consumer, _provider);
 
             if (retriever is null)
@@ -52,7 +51,7 @@ namespace Pactify
                 throw new PactifyException("Given publish type is invalid");
             }
 
-            return new PactVerifier(_options, retriever, dispatcher);
+            return new PactVerifier(_options, retriever, _httpClient ?? new HttpClient());
         }
     }
 }

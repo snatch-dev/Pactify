@@ -5,7 +5,7 @@ namespace Pactify
     public interface IPactVerifierBuilder
     {
         IPactVerifierBuilder Between(string consumer, string provider);
-        IPactVerifierBuilder UsingHttp(HttpClient httpClient);
+        IPactVerifierBuilder UsingHttpClient(HttpClient httpClient);
         IPactVerifier Build();
     }
 }

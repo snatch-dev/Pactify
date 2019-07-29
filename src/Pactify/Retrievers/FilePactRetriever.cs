@@ -7,8 +7,8 @@ namespace Pactify.Retrievers
 {
     internal sealed class FilePactRetriever : IPactRetriever
     {
-        public readonly string _consumer;
-        public readonly string _provider;
+        private readonly string _consumer;
+        private readonly string _provider;
 
         public FilePactRetriever(string consumer, string provider)
         {

@@ -7,6 +7,6 @@ namespace Pactify
         IHttpPactResponseBuilder WithHeader(string key, string value);
         IHttpPactResponseBuilder WithStatusCode(HttpStatusCode statusCode);
         IHttpPactResponseBuilder WithBody(object body);
-        IHttpPactResponseBuilder WithBody<TBody>() where TBody : new();
+        IHttpPactResponseBuilder WithBody<TBody>();
     }
 }

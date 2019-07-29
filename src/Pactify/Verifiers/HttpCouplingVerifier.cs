@@ -10,7 +10,7 @@ using Pactify.Definitions.Http;
 
 namespace Pactify.Verifiers
 {
-    internal sealed class HttpCouplingVerifier : ICouplingVerifier
+    internal sealed class HttpCouplingVerifier
     {
         private readonly HttpClient _httpClient;
 
@@ -19,26 +19,21 @@ namespace Pactify.Verifiers
             _httpClient = httpClient;
         }
 
-        public async Task<PactVerificationResult> VerifyAsync(ICouplingDefinition definition, PactDefinitionOptions options)
+        public async Task<PactVerificationResult> VerifyAsync(HttpCouplingDefinition definition, PactDefinitionOptions options)
         {
-            if(!(definition is HttpCouplingDefinition httpDefinition) )
-            {
-                throw new PactifyException("Definition type is invalid");
-            }
-
-            var getResult = GetHttpMethod(httpDefinition.Request.Method);
-            var httpResponse = await getResult(httpDefinition.Request.Path);
+            var getResult = GetHttpMethod(definition.Request.Method);
+            var httpResponse = await getResult(definition.Request.Path);
 
             var errors = new List<string>();
 
-            if(httpResponse.StatusCode != httpDefinition.Response.StatusCode)
+            if(httpResponse.StatusCode != definition.Response.StatusCode)
             {
-                errors.Add($"Expected status code: {httpDefinition.Response.StatusCode}, but was {httpResponse.StatusCode}");
+                errors.Add($"Expected status code: {definition.Response.StatusCode}, but was {httpResponse.StatusCode}");
             }
 
             var json = await httpResponse.Content.ReadAsStringAsync();
             IDictionary<string, object> providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);
-            var expectedBody = httpDefinition.Response.Body;
+            var expectedBody = definition.Response.Body;
 
             foreach (var pair in (IDictionary<string, object>)expectedBody)
             {

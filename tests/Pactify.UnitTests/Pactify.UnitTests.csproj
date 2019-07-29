@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Pactify\Pactify.csproj" />
-    <ProjectReference Include="..\..\TestWebApp\TestWebApp.csproj" />
   </ItemGroup>
 
 </Project>

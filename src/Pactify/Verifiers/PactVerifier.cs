@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Pactify.Retrievers;
 
@@ -9,17 +10,16 @@ namespace Pactify.Verifiers
     {
         private readonly PactDefinitionOptions _options;
         private readonly IPactRetriever _retriever;
-        private readonly ICouplingVerifierDispatcher _dispatcher;
+        private readonly HttpClient _httpClient;
 
         private Func<Task> _onBefore = () => Task.CompletedTask;
         private Func<Task> _onAfter = () => Task.CompletedTask;
 
-        public PactVerifier(PactDefinitionOptions options, IPactRetriever retriever,
-            ICouplingVerifierDispatcher dispatcher)
+        public PactVerifier(PactDefinitionOptions options, IPactRetriever retriever, HttpClient httpClient)
         {
             _options = options;
             _retriever = retriever;
-            _dispatcher = dispatcher;
+            _httpClient = httpClient;
         }
 
         public IPactVerifier Before(Func<Task> onBefore)
@@ -41,9 +41,10 @@ namespace Pactify.Verifiers
             await _onBefore();
 
             var definition = _retriever.Retrieve(_options);
+            var verifier = new HttpCouplingVerifier(_httpClient);
 
             var resultTasks = definition.Couplings
-                .Select(c => _dispatcher.DispatchAsync(c, _options))
+                .Select(c => verifier.VerifyAsync(c, _options))
                 .ToList();
 
             await Task.WhenAll(resultTasks);

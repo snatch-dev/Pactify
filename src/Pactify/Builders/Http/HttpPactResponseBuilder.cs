@@ -1,4 +1,5 @@
 using System.Net;
+using System.Runtime.Serialization;
 using Pactify.Definitions.Http;
 
 namespace Pactify.Builders.Http
@@ -35,9 +36,9 @@ namespace Pactify.Builders.Http
             return this;
         }
 
-        public IHttpPactResponseBuilder WithBody<TBody>() where TBody : new()
-            => WithBody(new TBody());
-        
+        public IHttpPactResponseBuilder WithBody<TBody>()
+            => WithBody(FormatterServices.GetUninitializedObject(typeof(TBody)));
+
         public HttpPactResponse Build()
             => _pactResponse;
     }

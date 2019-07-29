@@ -1,14 +1,10 @@
-using Pactify.Enums;
-
 namespace Pactify.Definitions.Http
 {
-    internal class HttpCouplingDefinition : CouplingDefinitionBase
+    internal class HttpCouplingDefinition
     {
+        public string State { get; set; }
+        public string Description { get; set; }
         public HttpPactRequest Request { get; set; }
         public HttpPactResponse Response { get; set; }
-        
-        public HttpCouplingDefinition() : base(CouplingType.Http)
-        {
-        }
     }
 }
