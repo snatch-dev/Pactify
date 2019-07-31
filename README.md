@@ -3,7 +3,10 @@
 
 Pactify is very simple contract testing tool for .NET Core. It was inspired by [PACT.io](https://docs.pact.io/).
 
-  
+  |   | master  | develop  |
+|---|--------|----------|
+|AppVeyor|[![Build status](https://ci.appveyor.com/api/projects/status/0i8kk52yy53c5mm9/branch/master?svg=true)](https://ci.appveyor.com/project/GooRiOn/pactify/branch/master)|[![Build status](https://ci.appveyor.com/api/projects/status/0i8kk52yy53c5mm9/branch/develop?svg=true)](https://ci.appveyor.com/project/GooRiOn/pactify/branch/develop)|
+|CodeCov|[![codecov](https://codecov.io/gh/GooRiOn/Pactify/branch/master/graph/badge.svg)](https://codecov.io/gh/GooRiOn/Pactify)|[![codecov](https://codecov.io/gh/GooRiOn/Pactify/branch/develop/graph/badge.svg)](https://codecov.io/gh/GooRiOn/Pactify)
 
 # Installation
 
