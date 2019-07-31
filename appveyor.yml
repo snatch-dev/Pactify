@@ -1,0 +1,25 @@
+init:
+  - git config --global core.autocrlf true
+
+image: Visual Studio 2015
+
+before_build:
+- choco install opencover.portable
+- choco install codecov
+
+build_script:
+  - cd build
+  - ps: .\build.ps1
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full C:\projects\pactify\tests\Pactify.UnitTests\Pactify.UnitTests.csproj" -filter:"+[Pactify*]* -[Pactify.UnitTests*]*" -output:".\pactify_coverage.xml" -oldstyle
+  - codecov -f .\pactify_coverage.xml -t $(codecov_token)
+
+test: off
+
+branches:
+  only:
+    - develop
+    - master
+
+cache:
+- tools -> build.cake
+- packages -> build.cake
