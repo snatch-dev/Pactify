@@ -41,7 +41,7 @@ public async Task Consumer_Should_Create_A_Pact()
         IgnoreCasing = true  
     };  
     
-    PactMaker  
+    await PactMaker  
         .Create(options)  
         .Between("orders", "parcels")  
         .WithHttpCoupling(cb => cb  
@@ -55,7 +55,7 @@ public async Task Consumer_Should_Create_A_Pact()
                 .WithStatusCode(HttpStatusCode.OK)  
                 .WithBody<ParcelReadModel>()))  
         .PublishedAsFile("../../../../../pacts")  
-        .Make();   
+        .MakeAsync();   
 }
 ```
  
@@ -158,7 +158,7 @@ public async Task Consumer_Should_Create_APact()
         IgnoreCasing = true  
   };  
   
-    PactMaker  
+    await PactMaker  
 		.Create(options)  
         .Between("orders", "parcels")  
         .WithHttpCoupling(cb => cb  
@@ -171,8 +171,8 @@ public async Task Consumer_Should_Create_APact()
                 .WithHeader("Content-Type", "application/json")  
                 .WithStatusCode(HttpStatusCode.OK)  
                 .WithBody<ParcelReadModel>()))  
-        .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put)  
-        .Make();  
+        .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put) 
+        .MakeAsync();  
 }  
   
 [Fact]  
