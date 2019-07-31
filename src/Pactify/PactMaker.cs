@@ -44,14 +44,14 @@ namespace Pactify
             return this;
         }
 
-        public IPactMaker WithHttpCoupling(Action<IHttpCouplingBuilder> buildCoupling)
+        public IPactMaker WithHttpInteraction(Action<IHttpInteractionBuilder> buildCoupling)
         {
             if (buildCoupling is null)
             {
                 throw new PactifyException("Coupling definition must be defined");
             }
 
-            var builder = new HttpCouplingBuilder();
+            var builder = new HttpInteractionBuilder();
             buildCoupling(builder);
 
             var accessor = (IBuildingAccessor<HttpInteractionDefinition>)builder;

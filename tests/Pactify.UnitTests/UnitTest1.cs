@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Pactify.Serialization;
 using Xunit;
 
 namespace Pactify.UnitTests
@@ -20,7 +19,7 @@ namespace Pactify.UnitTests
             await PactMaker
                 .Create(options)
                 .Between("orders", "parcels")
-                .WithHttpCoupling(cb => cb
+                .WithHttpInteraction(cb => cb
                     .Given("There is a parcel with some id")
                     .UponReceiving("A GET Request to retrieve the parcel")
                     .With( request => request

@@ -3,16 +3,16 @@ using Pactify.Definitions.Http;
 
 namespace Pactify.Builders.Http
 {
-    internal sealed class HttpCouplingBuilder : IHttpCouplingBuilder, IBuildingAccessor<HttpInteractionDefinition>
+    internal sealed class HttpInteractionBuilder : IHttpInteractionBuilder, IBuildingAccessor<HttpInteractionDefinition>
     {
         private readonly HttpInteractionDefinition _definition;
 
-        public HttpCouplingBuilder()
+        public HttpInteractionBuilder()
         {
             _definition = new HttpInteractionDefinition();
         }
-        
-        public IHttpCouplingBuilder Given(string state)
+
+        public IHttpInteractionBuilder Given(string state)
         {
             if (string.IsNullOrEmpty(state))
             {
@@ -23,13 +23,13 @@ namespace Pactify.Builders.Http
             return this;
         }
 
-        public IHttpCouplingBuilder UponReceiving(string description)
+        public IHttpInteractionBuilder UponReceiving(string description)
         {
             _definition.Description = description;
             return this;
         }
 
-        public IHttpCouplingBuilder With(Action<IHttpPactRequestBuilder> buildRequest)
+        public IHttpInteractionBuilder With(Action<IHttpPactRequestBuilder> buildRequest)
         {
             if (buildRequest is null)
             {
@@ -44,7 +44,7 @@ namespace Pactify.Builders.Http
             return this;
         }
 
-        public IHttpCouplingBuilder WillRespondWith(Action<IHttpPactResponseBuilder> buildResponse)
+        public IHttpInteractionBuilder WillRespondWith(Action<IHttpPactResponseBuilder> buildResponse)
         {
             if (buildResponse is null)
             {
