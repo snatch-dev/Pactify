@@ -17,7 +17,7 @@ namespace Pactify.UnitTests
                 IgnoreCasing = true
             };
 
-            PactMaker
+            await PactMaker
                 .Create(options)
                 .Between("orders", "parcels")
                 .WithHttpCoupling(cb => cb
@@ -31,7 +31,7 @@ namespace Pactify.UnitTests
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBody<ParcelReadModel>()))
                 .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put)
-                .Make();
+                .MakeAsync();
         }
 
         [Fact]

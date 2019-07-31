@@ -32,7 +32,7 @@ Task("run-xunit-tests")
             Configuration = configuration
         };
     
-        DotNetCoreTest("../tests/Pactify.UnitTests/Pactify.UnitTests.csproj", settings);
+        //DotNetCoreTest("../tests/Pactify.UnitTests/Pactify.UnitTests.csproj", settings);
     });	
 
 Task("Default")
