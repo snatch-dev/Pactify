@@ -1,0 +1,33 @@
+{
+  "consumer": {
+    "name": "orders"
+  },
+  "provider": {
+    "name": "parcels"
+  },
+  "interactions": [
+    {
+      "provider_state": "There is a parcel with some id",
+      "description": "A GET Request to retrieve the parcel",
+      "request": {
+        "method": "GET",
+        "path": "api/parcels/1"
+      },
+      "response": {
+        "headers": {
+          "content-Type": "application/json"
+        },
+        "status": 200,
+        "body": {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "name": null,
+          "price": 0.0
+        }
+      }
+    }
+  ],
+  "options": {
+    "ignoreCasing": true,
+    "ignoreContractValues": true
+  }
+}

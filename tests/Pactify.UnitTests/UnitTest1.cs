@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Pactify.Serialization;
 using Xunit;
 
 namespace Pactify.UnitTests
@@ -8,7 +9,7 @@ namespace Pactify.UnitTests
     public class UnitTest1
     {
         [Fact]
-        public async Task Test1()
+        public async Task Consumer_Should_Create_APact()
         {
             var options = new PactDefinitionOptions
             {
@@ -31,9 +32,11 @@ namespace Pactify.UnitTests
                         .WithBody<ParcelReadModel>()))
                 .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put)
                 .Make();
+        }
 
-
-
+        [Fact]
+        public async Task Provider_Should_Meet_Consumers_Expectations()
+        {
             await PactVerifier
                 .CreateFor<Startup>()
                 .Between("orders", "parcels")
