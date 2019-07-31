@@ -2,8 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <Title>Pactify</Title>
+    <AssemblyName>Pactify</AssemblyName>
+    <PackageId>Pactify</PackageId>
+    <PackageTags>pactify;PACT;contracts;testing</PackageTags>
+    <Description>Contract testing tool for .NET Core.</Description>
+    <Authors>Dariusz Pawlukiewicz</Authors>
+    <PackageProjectUrl>https://github.com/GooRiOn/Pactify</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/GooRiOn/Pactify/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://user-images.githubusercontent.com/7096476/62190529-d8b61a00-b371-11e9-8fce-3d3865f65f3b.png</PackageIconUrl>
+    <VersionPrefix>2.0.1</VersionPrefix>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
