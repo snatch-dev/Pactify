@@ -47,7 +47,7 @@ public async Task Consumer_Should_Create_A_Pact()
     await PactMaker  
         .Create(options)  
         .Between("orders", "parcels")  
-        .WithHttpCoupling(cb => cb  
+        .WithHttpInteraction(cb => cb  
             .Given("There is a parcel with some id")  
             .UponReceiving("A GET Request to retrieve the parcel")  
             .With( request => request  
@@ -164,7 +164,7 @@ public async Task Consumer_Should_Create_APact()
     await PactMaker  
 		.Create(options)  
         .Between("orders", "parcels")  
-        .WithHttpCoupling(cb => cb  
+        .WithHttpInteraction(cb => cb  
             .Given("There is a parcel with some id")  
             .UponReceiving("A GET Request to retrieve the parcel")  
             .With( request => request  
