@@ -67,7 +67,7 @@ namespace Pactify
         public async Task VerifyAsync()
         {
             var definition = await _retriever.RetrieveAsync();
-            var verifier = new HttpCouplingVerifier(_httpClient);
+            var verifier = new HttpInteractionVerifier(_httpClient);
 
             var resultTasks = definition.Interactions
                 .Select(c => verifier.VerifyAsync(c, definition.Options))
