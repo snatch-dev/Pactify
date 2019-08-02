@@ -1,10 +1,12 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 using Pactify.Builders;
 using Pactify.Builders.Http;
 using Pactify.Definitions;
 using Pactify.Definitions.Http;
+using Pactify.Messages;
 using Pactify.Publishers;
 
 namespace Pactify
@@ -22,21 +24,14 @@ namespace Pactify
             };
         }
 
-        public static IPactMaker Create(PactDefinitionOptions options)
-        {
-            if (options is null)
-            {
-                throw new PactifyException("Options must be provided");
-            }
-
-            return new PactMaker(options);
-        }
+        public static IPactMaker Create(PactDefinitionOptions options = null)
+            => new PactMaker(options ?? new PactDefinitionOptions());
 
         public IPactMaker Between(string consumer, string provider)
         {
             if (string.IsNullOrEmpty(consumer) || string.IsNullOrEmpty(provider))
             {
-                throw new PactifyException("Both consumer and provider must be defined");
+                throw new PactifyException(ErrorMessages.ConsumerProviderMustBeDefined);
             }
 
             _pactDefinition.Consumer = new ConsumerDefinition { Name = consumer };
@@ -48,7 +43,7 @@ namespace Pactify
         {
             if (buildCoupling is null)
             {
-                throw new PactifyException("Coupling definition must be defined");
+                throw new PactifyException(ErrorMessages.InteractionMustBeDefined);
             }
 
             var builder = new HttpInteractionBuilder();
@@ -80,7 +75,7 @@ namespace Pactify
         {
             if (_publisher is null)
             {
-                throw new PactifyException("PACT publisher has not been set up");
+                throw new PactifyException(ErrorMessages.PublisherNotSetUp);
             }
             await _publisher.PublishAsync(_pactDefinition);
         }

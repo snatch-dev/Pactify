@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Pactify.Definitions;
 using Pactify.Definitions.Http;
+using Pactify.Messages;
 
 namespace Pactify.Verifiers
 {
@@ -45,7 +46,9 @@ namespace Pactify.Verifiers
         {
             if(response.StatusCode != definition.Response.Status)
             {
-                errors.Add($"Expected status code: {definition.Response.Status}, but was {response.StatusCode}");
+                var message = GetErrorMessage(ErrorMessages.IncorrectResponseStatusCode,
+                    definition.Response.Status, response.StatusCode);
+                errors.Add(message);
             }
         }
 
@@ -61,14 +64,19 @@ namespace Pactify.Verifiers
 
                 if (name is null)
                 {
-                    errors.Add($"Expected header: {header.Key} was not present");
+                    var message = GetErrorMessage(ErrorMessages.MissingResponseHeader, header.Key);
+                    errors.Add(message);
                 }
                 else if (value != header.Value)
                 {
-                    errors.Add($"Expected header: {header.Key} has invalid value");
+                    var message = GetErrorMessage(ErrorMessages.IncorrectReposnseHeaderValue, header.Key, value);
+                    errors.Add(message);
                 }
             }
         }
+
+        private static string GetErrorMessage(string message, params object[] messageParams)
+            => string.Format(message, messageParams);
 
         private static void VerifyBody(PactDefinitionOptions options, object expectedBody,
             IDictionary<string, object> providedBody, List<string> errors)
@@ -85,16 +93,23 @@ namespace Pactify.Verifiers
 
                 if (providedProperty is null)
                 {
-                    errors.Add($"Expected property {propertyName} was not present");
+                    var message = GetErrorMessage(ErrorMessages.MissingResponseBodyProperty, propertyName);
+                    errors.Add(message);
                 }
                 else
                 {
-                    if (options.IgnoreContractValues) continue;
+                    if (options.IgnoreContractValues)
+                    {
+                        continue;
+                    }
+
                     var propertyHasExpectedValue = providedProperty.Equals(propertyValue);
 
                     if (!propertyHasExpectedValue)
                     {
-                        errors.Add($"Expected property {propertyName} has invalid value");
+                        var message = GetErrorMessage(ErrorMessages.IncorrectReposnseBodyPropertyValue, propertyValue,
+                            providedProperty);
+                        errors.Add(message);
                     }
                 }
             }
@@ -113,7 +128,7 @@ namespace Pactify.Verifiers
                 case "DELETE":
                     return path => _httpClient.DeleteAsync(path);
                 default:
-                    throw new PactifyException("Unknown HTTP method defined");
+                    throw new PactifyException(ErrorMessages.UnknownHttpMethodDefined);
             }
         }
     }

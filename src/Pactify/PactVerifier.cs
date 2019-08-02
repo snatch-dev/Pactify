@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Pactify.Messages;
 using Pactify.Retrievers;
 using Pactify.Verifiers;
 
@@ -33,11 +34,6 @@ namespace Pactify
 
         public IPactVerifier Between(string consumer, string provider)
         {
-            if (string.IsNullOrEmpty(consumer) || string.IsNullOrEmpty(provider))
-            {
-                throw new PactifyException("Both consumer and provider must be defined");
-            }
-
             _consumer = consumer;
             _provider = provider;
 
@@ -48,7 +44,7 @@ namespace Pactify
         {
             if (string.IsNullOrEmpty(_consumer) || string.IsNullOrEmpty(_provider))
             {
-                throw new PactifyException("Both consumer and provider must be defined");
+                throw new PactifyException(ErrorMessages.ConsumerProviderMustBeDefined);
             }
 
             _retriever = new FilePactRetriever(_consumer, _provider, localPath);
