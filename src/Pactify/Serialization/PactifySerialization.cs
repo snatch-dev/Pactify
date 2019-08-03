@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Pactify.Serialization
 {
-    public static class PactifySerialization
+    internal static class PactifySerialization
     {
         public static JsonSerializerSettings Settings = new JsonSerializerSettings
         {

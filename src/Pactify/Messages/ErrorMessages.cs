@@ -1,6 +1,3 @@
-using System;
-using System.Net;
-
 namespace Pactify.Messages
 {
     internal static class ErrorMessages

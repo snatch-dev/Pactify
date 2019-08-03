@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Pactify.Definitions;
 using Pactify.Serialization;
 
@@ -12,6 +11,7 @@ namespace Pactify.Publishers
     internal sealed class HttpPactPublisher : IPactPublisher
     {
         private const string RequestHeader = "Pact-Requester";
+        private const string JsonContentType = "application/json";
 
         private readonly string _url;
         private readonly HttpMethod _method;
@@ -31,7 +31,7 @@ namespace Pactify.Publishers
             var request = new HttpRequestMessage
             {
                 RequestUri = new Uri(_url),
-                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                Content = new StringContent(json, Encoding.UTF8, JsonContentType),
                 Method = _method
             };
 

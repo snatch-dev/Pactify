@@ -4,7 +4,7 @@ using Pactify.Definitions.Http;
 
 namespace Pactify.Builders.Http
 {
-    public class HttpPactResponseBuilder : IHttpPactResponseBuilder, IBuildingAccessor<HttpPactResponse>
+    internal sealed class HttpPactResponseBuilder : IHttpPactResponseBuilder, IBuildingAccessor<HttpPactResponse>
     {
         private readonly HttpPactResponse _pactResponse;
 

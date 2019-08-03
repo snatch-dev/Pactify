@@ -1,6 +1,6 @@
 namespace Pactify.Definitions
 {
-    internal class ConsumerDefinition
+    internal sealed class ConsumerDefinition
     {
         public string Name { get; set; }
     }

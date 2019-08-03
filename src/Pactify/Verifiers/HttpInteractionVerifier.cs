@@ -39,7 +39,6 @@ namespace Pactify.Verifiers
 
             VerifyBody(options, expectedBody, providedBody, errors);
             return new PactVerificationResult(errors);
-
         }
 
         private static void VerifyStatusCode(HttpInteractionDefinition definition, HttpResponseMessage response, List<string> errors)

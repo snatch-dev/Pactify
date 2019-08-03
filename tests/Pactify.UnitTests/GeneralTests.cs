@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Pactify.UnitTests
 {
-    public class UnitTest1
+    public class GeneralTests
     {
         [Fact]
         public async Task Consumer_Should_Create_APact()
