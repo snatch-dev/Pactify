@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Pactify.Definitions.Http
 {
-    public class HttpPactResponse
+    internal sealed class HttpPactResponse
     {
         public IDictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
         public HttpStatusCode Status { get; set; }

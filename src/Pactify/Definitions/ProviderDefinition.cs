@@ -1,6 +1,6 @@
 namespace Pactify.Definitions
 {
-    internal class ProviderDefinition
+    internal sealed class ProviderDefinition
     {
         public string Name { get; set; }
     }
