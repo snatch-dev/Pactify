@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pactify", "src\Pactify\Pact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pactify.UnitTests", "tests\Pactify.UnitTests\Pactify.UnitTests.csproj", "{E9ACB3AD-F498-4123-A8AC-298E0385EC80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pactify.AspNetCore", "src\Pactify.AspNetCore\Pactify.AspNetCore.csproj", "{B93C122F-16AD-4B14-AB84-7EB75E0CD643}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x64.Build.0 = Release|Any CPU
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9ACB3AD-F498-4123-A8AC-298E0385EC80}.Release|x86.Build.0 = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|x64.Build.0 = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Debug|x86.Build.0 = Debug|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|x64.ActiveCfg = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|x64.Build.0 = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|x86.ActiveCfg = Release|Any CPU
+		{B93C122F-16AD-4B14-AB84-7EB75E0CD643}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
