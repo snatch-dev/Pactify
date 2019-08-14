@@ -14,7 +14,7 @@ Pactify is very simple contract testing tool for .NET Core. It was inspired by [
 
 ```bash
 
-Install-Package Pactify -Version 1.0.0
+Install-Package Pactify -Version 1.1.0
 
 ```
 
@@ -24,7 +24,7 @@ Install-Package Pactify -Version 1.0.0
 
 ```bash
 
-dotnet add package Pactify --version 1.0.0
+dotnet add package Pactify --version 1.1.0
 
 ```
 
