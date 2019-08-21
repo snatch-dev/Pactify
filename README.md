@@ -107,7 +107,7 @@ The above unit test will create a PACT JSON between **orders** and **parcels** s
 }
 ```
   
-  Because the whole idea assumes that consumer is always right this part of the testing **should always pass**! 
+Because the whole idea assumes that consumer is always right this part of the testing **should always pass**! 
 
 Having that, you can move to the verifying the pact on the provider's side:
 
@@ -130,7 +130,7 @@ PactVerifier.Create(myHttpClient)
 ...
 ```
 
-If the pact's verification passes the above test should pass. Otherwise proper error messages are going to be displayed to you.
+If the pacts verification passes the above test should pass. Otherwise proper error messages are going to be displayed to you.
 
 
 # Integration with PACT broker
