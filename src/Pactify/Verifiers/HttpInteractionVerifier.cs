@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Pactify.Definitions;
 using Pactify.Definitions.Http;
 using Pactify.Messages;
+using SmartFormat;
 
 namespace Pactify.Verifiers
 {
@@ -20,10 +21,14 @@ namespace Pactify.Verifiers
             _httpClient = httpClient;
         }
 
-        public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options)
+        public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options, 
+            object pactTemplateObject = null)
         {
             var getResult = GetHttpMethod(definition.Request.Method);
-            var httpResponse = await getResult(definition.Request.Path);
+            var requestPath = pactTemplateObject is null
+                ? definition.Request.Path
+                : Smart.Format(definition.Request.Path, pactTemplateObject);
+            var httpResponse = await getResult(requestPath);
             var json = await httpResponse.Content.ReadAsStringAsync();
             var providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);
             var expectedBody = definition.Response.Body;

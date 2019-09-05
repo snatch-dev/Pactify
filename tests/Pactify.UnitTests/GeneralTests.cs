@@ -24,9 +24,8 @@ namespace Pactify.UnitTests
                     .UponReceiving("A GET Request to retrieve the parcel")
                     .With( request => request
                         .WithMethod(HttpMethod.Get)
-                        .WithPath("api/parcels/1"))
+                        .WithPath("api/parcels/{Id}"))
                     .WillRespondWith(response => response
-                        .WithHeader("Content-Type", "application/json")
                         .WithStatusCode(HttpStatusCode.OK)
                         .WithBody<ParcelReadModel>()))
                 .PublishedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/version/1.2.104", HttpMethod.Put)
@@ -37,7 +36,7 @@ namespace Pactify.UnitTests
         public async Task Provider_Should_Meet_Consumers_Expectations()
         {
             await PactVerifier
-                .CreateFor<Startup>()
+                .CreateFor<Startup>(new ParcelReadModel())
                 .Between("orders", "parcels")
                 .RetrievedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/latest")
                 .VerifyAsync();
