@@ -22,12 +22,12 @@ namespace Pactify.Verifiers
         }
 
         public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options, 
-            object pactTemplateObject = null)
+            object pathTemplateObject = null)
         {
             var getResult = GetHttpMethod(definition.Request.Method);
-            var requestPath = pactTemplateObject is null
+            var requestPath = pathTemplateObject is null
                 ? definition.Request.Path
-                : Smart.Format(definition.Request.Path, pactTemplateObject);
+                : Smart.Format(definition.Request.Path, pathTemplateObject);
             var httpResponse = await getResult(requestPath);
             var json = await httpResponse.Content.ReadAsStringAsync();
             var providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);

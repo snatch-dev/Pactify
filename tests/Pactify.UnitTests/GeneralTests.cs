@@ -36,7 +36,8 @@ namespace Pactify.UnitTests
         public async Task Provider_Should_Meet_Consumers_Expectations()
         {
             await PactVerifier
-                .CreateFor<Startup>(new ParcelReadModel())
+                .CreateFor<Startup>()
+                .UsePathTemplateObject(new ParcelReadModel())
                 .Between("orders", "parcels")
                 .RetrievedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/latest")
                 .VerifyAsync();

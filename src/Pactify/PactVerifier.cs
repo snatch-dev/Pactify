@@ -13,26 +13,24 @@ namespace Pactify
     public sealed class PactVerifier : IPactVerifier
     {
         private readonly HttpClient _httpClient;
-        private readonly object _pactTemplateObject;
+        private object _pathTemplateObject;
         private string _consumer;
         private string _provider;
         private IPactRetriever _retriever;
 
-        private PactVerifier(HttpClient httpClient, object pactTemplateObject)
+        private PactVerifier(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _pactTemplateObject = pactTemplateObject;
         }
 
-        public static IPactVerifier Create(HttpClient httpClient = null, 
-            object pactTemplateObject = null)
-            => new PactVerifier(httpClient ?? new HttpClient(), pactTemplateObject);
+        public static IPactVerifier Create(HttpClient httpClient = null)
+            => new PactVerifier(httpClient ?? new HttpClient());
 
-        public static IPactVerifier CreateFor<TStartup>(object pactTemplateObject = null) where TStartup : class
+        public static IPactVerifier CreateFor<TStartup>() where TStartup : class
         {
             var testServer = new TestServer(new WebHostBuilder().UseStartup<TStartup>());
             var httpClient = testServer.CreateClient();
-            return Create(httpClient, pactTemplateObject);
+            return Create(httpClient);
         }
 
         public IPactVerifier Between(string consumer, string provider)
@@ -40,6 +38,12 @@ namespace Pactify
             _consumer = consumer;
             _provider = provider;
 
+            return this;
+        }
+
+        public IPactVerifier UsePathTemplateObject(object pathTemplateObject)
+        {
+            _pathTemplateObject = pathTemplateObject;
             return this;
         }
 
@@ -69,7 +73,7 @@ namespace Pactify
             var verifier = new HttpInteractionVerifier(_httpClient);
 
             var resultTasks = definition.Interactions
-                .Select(c => verifier.VerifyAsync(c, definition.Options, _pactTemplateObject))
+                .Select(c => verifier.VerifyAsync(c, definition.Options, _pathTemplateObject))
                 .ToList();
 
             await Task.WhenAll(resultTasks);
