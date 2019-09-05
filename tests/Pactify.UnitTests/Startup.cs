@@ -19,9 +19,11 @@ namespace Pactify.UnitTests
         {
             app.UseRouter(builder =>
             {
-                builder.MapGet("/api/parcels/1", async (request, response, data) =>
+
+                var id = new Guid("9b5055dd-5750-4c65-ab4c-9a785a9b7ef4");
+                builder.MapGet($"/api/parcels/{id}", async (request, response, data) =>
                 {
-                    var parcel = new ParcelReadModel {Id = Guid.NewGuid(), Name = "Test", Price = 10};
+                    var parcel = new ParcelReadModel {Id = id, Name = "Test", Price = 10};
                     var json = JsonConvert.SerializeObject(parcel);
                     await response.WriteAsync(json);
                 });

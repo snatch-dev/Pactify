@@ -13,23 +13,26 @@ namespace Pactify
     public sealed class PactVerifier : IPactVerifier
     {
         private readonly HttpClient _httpClient;
+        private readonly object _pactTemplateObject;
         private string _consumer;
         private string _provider;
         private IPactRetriever _retriever;
 
-        private PactVerifier(HttpClient httpClient)
+        private PactVerifier(HttpClient httpClient, object pactTemplateObject)
         {
             _httpClient = httpClient;
+            _pactTemplateObject = pactTemplateObject;
         }
 
-        public static IPactVerifier Create(HttpClient httpClient = null)
-            => new PactVerifier(httpClient ?? new HttpClient());
+        public static IPactVerifier Create(HttpClient httpClient = null, 
+            object pactTemplateObject = null)
+            => new PactVerifier(httpClient ?? new HttpClient(), pactTemplateObject);
 
-        public static IPactVerifier CreateFor<TStartup>() where TStartup : class
+        public static IPactVerifier CreateFor<TStartup>(object pactTemplateObject = null) where TStartup : class
         {
             var testServer = new TestServer(new WebHostBuilder().UseStartup<TStartup>());
             var httpClient = testServer.CreateClient();
-            return Create(httpClient);
+            return Create(httpClient, pactTemplateObject);
         }
 
         public IPactVerifier Between(string consumer, string provider)
@@ -66,7 +69,7 @@ namespace Pactify
             var verifier = new HttpInteractionVerifier(_httpClient);
 
             var resultTasks = definition.Interactions
-                .Select(c => verifier.VerifyAsync(c, definition.Options))
+                .Select(c => verifier.VerifyAsync(c, definition.Options, _pactTemplateObject))
                 .ToList();
 
             await Task.WhenAll(resultTasks);
