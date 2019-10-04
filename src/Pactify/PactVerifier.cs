@@ -41,9 +41,9 @@ namespace Pactify
             return this;
         }
 
-        public IPactVerifier UsePathTemplateObject(object pathTemplateObject)
+        public IPactVerifier UseEndpointTemplate(object templateObject)
         {
-            _pathTemplateObject = pathTemplateObject;
+            _pathTemplateObject = templateObject;
             return this;
         }
 

@@ -37,7 +37,7 @@ namespace Pactify.UnitTests
         {
             await PactVerifier
                 .CreateFor<Startup>()
-                .UsePathTemplateObject(new ParcelReadModel())
+                .UseEndpointTemplate(new ParcelReadModel())
                 .Between("orders", "parcels")
                 .RetrievedViaHttp("http://localhost:9292/pacts/provider/parcels/consumer/orders/latest")
                 .VerifyAsync();
