@@ -21,13 +21,13 @@ namespace Pactify.Verifiers
             _httpClient = httpClient;
         }
 
-        public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options, 
-            object pathTemplateObject = null)
+        public async Task<PactVerificationResult> VerifyAsync(HttpInteractionDefinition definition, PactDefinitionOptions options,
+            object templateObject = null)
         {
             var getResult = GetHttpMethod(definition.Request.Method);
-            var requestPath = pathTemplateObject is null
+            var requestPath = templateObject is null
                 ? definition.Request.Path
-                : Smart.Format(definition.Request.Path, pathTemplateObject);
+                : Smart.Format(definition.Request.Path, templateObject);
             var httpResponse = await getResult(requestPath);
             var json = await httpResponse.Content.ReadAsStringAsync();
             var providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);
@@ -111,8 +111,8 @@ namespace Pactify.Verifiers
 
                     if (!propertyHasExpectedValue)
                     {
-                        var message = GetErrorMessage(ErrorMessages.IncorrectReposnseBodyPropertyValue, propertyValue,
-                            providedProperty);
+                        var message = GetErrorMessage(ErrorMessages.IncorrectReposnseBodyPropertyValue,
+                            propertyValue, providedProperty);
                         errors.Add(message);
                     }
                 }

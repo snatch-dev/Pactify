@@ -6,7 +6,7 @@ namespace Pactify
     public interface IPactVerifier
     {
         IPactVerifier Between(string consumer, string provider);
-        IPactVerifier UsePathTemplateObject(object pathTemplateObject);
+        IPactVerifier UseEndpointTemplate(object templateObject);
         IPactVerifier RetrievedFromFile(string localPath);
         IPactVerifier RetrievedViaHttp(string url, string apiKey = null);
         Task VerifyAsync();
