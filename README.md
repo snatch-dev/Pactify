@@ -145,7 +145,7 @@ Navigate to the repository and run the **``docker-compose.yml``** file using the
 ```bash
 docker-compose up -d
 ```
-This will run all the broker's necessary infrastructure in the **detached** mode. The UI should be exposed at **``localhost:9292``**:
+This will run all the broker's necessary infrastructure in the **detached** mode. The UI should be available at **``localhost:9292``**:
 
 ![UI](https://user-images.githubusercontent.com/7096476/62197643-82040c80-b380-11e9-9438-d3b03d39ce17.png)
 
