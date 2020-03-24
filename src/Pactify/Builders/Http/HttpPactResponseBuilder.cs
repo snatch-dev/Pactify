@@ -1,4 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.Serialization;
 using Pactify.Definitions.Http;
 
@@ -37,7 +42,22 @@ namespace Pactify.Builders.Http
         }
 
         public IHttpPactResponseBuilder WithBody<TBody>()
-            => WithBody(FormatterServices.GetUninitializedObject(typeof(TBody)));
+        {
+            var isListType = typeof(TBody).GetMethods().FirstOrDefault(x => x.Name.Equals("Add")) != null;
+
+            if (isListType)
+            {
+                var listItemType = typeof(TBody).GetGenericArguments().Single();
+                var list = new List<object>
+                {
+                    Activator.CreateInstance(listItemType)
+                };
+
+                return WithBody(list);
+            }
+
+            return WithBody(FormatterServices.GetSafeUninitializedObject(typeof(TBody)));
+        }
 
         public HttpPactResponse Build()
             => _pactResponse;

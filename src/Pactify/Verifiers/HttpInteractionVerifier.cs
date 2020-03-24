@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Pactify.Definitions;
+using Newtonsoft.Json.Linq;
 using Pactify.Definitions.Http;
 using Pactify.Messages;
 using SmartFormat;
@@ -30,7 +30,9 @@ namespace Pactify.Verifiers
                 : Smart.Format(definition.Request.Path, templateObject);
             var httpResponse = await getResult(requestPath);
             var json = await httpResponse.Content.ReadAsStringAsync();
-            var providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);
+
+            object providedBody = GetProvidedBody(json);
+
             var expectedBody = definition.Response.Body;
             var errors = new List<string>();
 
@@ -44,6 +46,19 @@ namespace Pactify.Verifiers
 
             VerifyBody(options, expectedBody, providedBody, errors);
             return new PactVerificationResult(errors);
+        }
+
+        private static object GetProvidedBody(string json)
+        {
+            var data = JsonConvert.DeserializeObject(json);
+            object providedBody;
+
+            if (data is JArray)
+                providedBody = JsonConvert.DeserializeObject<List<ExpandoObject>>(json);
+            else
+                providedBody = JsonConvert.DeserializeObject<ExpandoObject>(json);
+
+            return providedBody;
         }
 
         private static void VerifyStatusCode(HttpInteractionDefinition definition, HttpResponseMessage response, List<string> errors)
@@ -83,9 +98,17 @@ namespace Pactify.Verifiers
             => string.Format(message, messageParams);
 
         private static void VerifyBody(PactDefinitionOptions options, object expectedBody,
-            IDictionary<string, object> providedBody, List<string> errors)
+            object providedBody, List<string> errors)
         {
-            foreach (var pair in (IDictionary<string, object>)expectedBody)
+            var provBody = (providedBody is IEnumerable<ExpandoObject>) ?
+                            (providedBody as IEnumerable<ExpandoObject>).First() :
+                            providedBody as ExpandoObject;
+
+            var expecBody = (expectedBody is IEnumerable<object>) ?
+                            (expectedBody as IEnumerable<object>).First() as ExpandoObject:
+                            expectedBody as ExpandoObject;
+
+            foreach (var pair in expecBody)
             {
                 var stringComparision = options.IgnoreCasing
                     ? StringComparison.InvariantCultureIgnoreCase
@@ -93,7 +116,7 @@ namespace Pactify.Verifiers
                 var propertyName = pair.Key;
                 var propertyValue = pair.Value;
 
-                var providedProperty = providedBody.FirstOrDefault(p => p.Key.Equals(propertyName, stringComparision)).Value;
+                var providedProperty = provBody.FirstOrDefault(p => p.Key.Equals(propertyName, stringComparision)).Value;
 
                 if (providedProperty is null)
                 {

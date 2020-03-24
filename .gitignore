@@ -314,3 +314,5 @@ tools/**
 
 # diff
 *.orig
+
+*.DS_Store
