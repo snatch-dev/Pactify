@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net7</TargetFramework>
     <Title>Pactify</Title>
     <AssemblyName>Pactify</AssemblyName>
     <PackageId>Pactify</PackageId>
@@ -19,10 +19,10 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0" />
-    <PackageReference Include="SmartFormat.NET" Version="2.4.2" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.10" />
+    <PackageReference Include="SmartFormat.NET" Version="3.2.2" />
   </ItemGroup>
 
 </Project>
